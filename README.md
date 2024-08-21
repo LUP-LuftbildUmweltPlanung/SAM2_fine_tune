@@ -1,9 +1,10 @@
 # SAM2_fine_tune
 The Segment Anything Model 2 ([SAM 2](https://github.com/facebookresearch/segment-anything-2?tab=readme-ov-file#download-checkpoints)) is an advanced foundational model designed to tackle prompt-based visual segmentation in both images and videos. 
+The model leverages a simple transformer architecture enhanced with streaming memory for optimized processing. SAM 2, trained on a customized dataset, achieves robust performance through targeted fine-tuning techniques.
+
 ![model_diagram](https://github.com/user-attachments/assets/a21be4eb-b505-498a-9637-fee70c170e4e)
 
 ## Description
-The model leverages a simple transformer architecture enhanced with streaming memory for optimized processing. SAM 2, trained on a specialized dataset, achieves robust performance through targeted fine-tuning techniques.
 
 The key distinction between fine-tuning a model and training one from scratch lies in the initial state of the weights and biases. When training from scratch, these parameters are randomly initialized based on a specific strategy, meaning the model starts with no prior knowledge of the task and performs poorly initially. Fine-tuning, however, begins with pre-existing weights and biases, allowing the model to adapt more effectively to the custom dataset.
 
