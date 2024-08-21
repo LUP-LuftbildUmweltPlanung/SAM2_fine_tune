@@ -13,13 +13,13 @@ The model utilizes a straightforward transformer architecture combined with stre
 * developed on Windows 10
 
 ### Installation
-'''
+```ruby
 conda create -n sam2 python=3.11
 conda activate sam2
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 cd ../SAM2_fine_tune/environment
 pip install -r requirements.txt
-'''
+```
 
 
 ### Executing program
