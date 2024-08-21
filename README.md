@@ -12,12 +12,22 @@ The model utilizes a straightforward transformer architecture combined with stre
 * Anaconda [download here](https://www.anaconda.com/download)
 * developed on Windows 10
 
-### nstallation
-* conda create -n sam2 python=3.11
-* conda activate sam2
-* pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-* cd ../SAM2_fine_tune/environment
-* pip install -r requirements.txt
+### Installation
+# Create a new conda environment named 'sam2' with Python 3.11
+conda create -n sam2 python=3.11
+
+# Activate the 'sam2' environment
+conda activate sam2
+
+# Install PyTorch, Torchvision, and Torchaudio with CUDA 11.8 support
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# Navigate to the SAM2 fine-tuning environment directory
+cd ../SAM2_fine_tune/environment
+
+# Install the required Python packages
+pip install -r requirements.txt
+
 
 ### Executing program
 set parameters and run in run_pipeline.py
