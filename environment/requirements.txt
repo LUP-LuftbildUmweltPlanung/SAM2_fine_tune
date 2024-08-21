@@ -1,0 +1,11 @@
+# Install OpenCV and other packages
+opencv-python==4.10.0.84
+GDAL-3.4.3-cp311-cp311-win_amd64.whl
+Fiona-1.8.21-cp311-cp311-win_amd64.whl
+tifffile==2024.8.10
+slidingwindow==0.0.14
+rasterio==1.3.10
+-e .
+
+
+
