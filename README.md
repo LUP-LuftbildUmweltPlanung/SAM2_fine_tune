@@ -15,13 +15,19 @@ The model utilizes a straightforward transformer architecture combined with stre
 ### Installation
 ```ruby
 conda create -n sam2 python=3.11
+```
+```ruby
 conda activate sam2
+```
+```ruby
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+```
+```ruby
 cd ../SAM2_fine_tune/environment
+```
+```ruby
 pip install -r requirements.txt
 ```
-
-
 ### Executing program
 set parameters and run in run_pipeline.py
 
