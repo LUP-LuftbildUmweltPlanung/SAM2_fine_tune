@@ -7,10 +7,10 @@ The model utilizes a straightforward transformer architecture combined with stre
 ## Getting Started
 
 ### Dependencies
-GDAL, Pytorch- rasterio ... (see installation)
-Cuda-capable GPU [overview here](https://developer.nvidia.com/cuda-gpus)
-Anaconda [download here](https://www.anaconda.com/download)
-developed on Windows 10
+* GDAL, Pytorch- rasterio ... (see installation)
+* Cuda-capable GPU [overview here](https://developer.nvidia.com/cuda-gpus)
+* Anaconda [download here](https://www.anaconda.com/download)
+* developed on Windows 10
 
 ### nstallation
 * conda create -n sam2 python=3.11
