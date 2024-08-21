@@ -12,9 +12,9 @@ Predict = True
 
 
 # Paths
-image_path = r"H:\+DeepLearning_Extern\beschirmung\RGB_UNET_Modell\Daten\unit_mosaic_fig\Hanau_2021\Hanau_2021_belaubt_tDOP_RGB_8bit_stack_50cm.tif"
-mask_path = r"H:\+DeepLearning_Extern\beschirmung\RGB_UNET_Modell\Daten\unit_mosaic_fig\Hanau_2021\hanau_2021_canopy_cover_binary_50cm.tif"
-base_dir = r"H:\+DeepLearning_Extern\beschirmung\RGB_UNET_Modell\Daten\SAM2_test_2"
+image_path = r"PATH"
+mask_path = r"PATH"
+base_dir = r"PATH"
 
 
 # Tile creation parameters
@@ -26,15 +26,15 @@ split = [0.8, 0.2] # split the data into train & valid dataset
 
 
 # Training parameters
-base_dir = r"H:\+DeepLearning_Extern\beschirmung\RGB_UNET_Modell\Daten\SAM2_test_2\trai" # Path where two folders: "img_tiles" & "mask_tiles" exist
-model_path = r"C:\Users\QuadroRTX\Downloads\SAM2\model" # to save the trained model
-user_defined_name = "canopy_model"
-EPOCHS = 100 # the number of Img the model should go through them
+base_dir = r"PATH" # Path where two folders: "img_tiles" & "mask_tiles" exist
+model_path = r"PATH" # to save the trained model
+user_defined_name = "canopy_model" # something related to the problem
+EPOCHS = 10000 # the number of Img the model should go through them
 
 
 # Prediction parameters
-predict_path = r"H:\+DeepLearning_Extern\beschirmung\RGB_UNET_Modell\Daten\SAM2_test\vali\img_tiles" # define the images path
-predict_model = r"C:\Users\QuadroRTX\Downloads\SAM2\model\model_canopy_model_0.torch" # the path where the model saved and the name of the model "name.torch"
+predict_path = r"PATH" # define the images path
+predict_model = r"..\PATH\to\model\model_canopy_model_0.torch" # the path where the model saved and the name of the model "name.torch"
 merge = True
 
 def main():
