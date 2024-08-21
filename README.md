@@ -38,7 +38,7 @@ set parameters and run in run_pipeline.py
 
 ## Acknowledgments
 
-[segment-anything-2](https://github.com/facebookresearch/segment-anything-2?tab=readme-ov-file#download-checkpoints)
-[Train/Fine-Tune Segment Anything 2 (SAM 2) in 60 lines of code](https://medium.com/@sagieppel/train-fine-tune-segment-anything-2-sam-2-in-60-lines-of-code-928dd29a63b3)
+* [segment-anything-2](https://github.com/facebookresearch/segment-anything-2?tab=readme-ov-file#download-checkpoints)
+* [Train/Fine-Tune Segment Anything 2 (SAM 2) in 60 lines of code](https://medium.com/@sagieppel/train-fine-tune-segment-anything-2-sam-2-in-60-lines-of-code-928dd29a63b3)
 
 
