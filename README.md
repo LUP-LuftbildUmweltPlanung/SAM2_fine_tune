@@ -3,6 +3,7 @@ The Segment Anything Model 2 ([SAM 2](https://github.com/facebookresearch/segmen
 The model leverages a simple transformer architecture enhanced with streaming memory for optimized processing. SAM 2, trained on a customized dataset, achieves robust performance through targeted fine-tuning techniques.
 
 ![model_diagram](https://github.com/user-attachments/assets/a21be4eb-b505-498a-9637-fee70c170e4e)
+[source](https://arxiv.org/pdf/2408.00714)
 
 ## Description
 
