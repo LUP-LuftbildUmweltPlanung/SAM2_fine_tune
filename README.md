@@ -28,7 +28,7 @@ cd ../SAM2_fine_tune/environment
 ```ruby
 pip install -r requirements.txt
 ```
-### Executing program
+## Executing program
 set parameters and run in run_pipeline.py
 
 ## Authors
