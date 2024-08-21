@@ -10,6 +10,7 @@ The model leverages a simple transformer architecture enhanced with streaming me
 The key distinction between fine-tuning a model and training one from scratch lies in the initial state of the weights and biases. When training from scratch, these parameters are randomly initialized based on a specific strategy, meaning the model starts with no prior knowledge of the task and performs poorly initially. Fine-tuning, however, begins with pre-existing weights and biases, allowing the model to adapt more effectively to the custom dataset.
 
 The dataset used for fine-tuning SAM 2 consisted of 8-bit RGB images with 50 cm resolution for binary segmentation tasks.
+
 The checkpoints which defined here in the pipeline is `sam2_hiera_large.pt`. 
 
 ## Getting Started
