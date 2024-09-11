@@ -26,16 +26,28 @@ class_zero = True # Enable for seperating 0 prediction class from nodata
 
 
 # Training parameters
-base_dir_train = r"H:\+DeepLearning_Extern\beschirmung\RGB_UNET_Modell\Daten\unet_tiles_rgb_8b_shadi\trai" # Path where two folders: "img_tiles" & "mask_tiles" exist
-model_path = r"C:\Users\QuadroRTX\Downloads\SAM2\model" # to save the trained model
-description = "canopy_model_sam2_fine_tune_all_data_15_epoch"
+base_dir_train = r"C:\Users\Beate\Desktop\shadi\fine_tune_sam2\Full_Training_2\trai" # Path where two folders: "img_tiles" & "mask_tiles" exist
+model_path = r"C:\Users\Beate\Desktop\shadi\fine_tune_sam2\Model_path" # to save the trained model
+description = "sam2_fine_tune_Prösa_Weißhaus_ZschornerWald_15_epoch"
 model_confg = "large" # 'large', 'base_plus', 'small', 'tiny'  which are  4 different pre-trained SAM 2 models
-mode = "binary" # binary if the dataset is (0,1) classification, else #"multi-label"
+mode = "multi-label" # binary if the dataset is (0,1) classification, else #"multi-label"
 LEARNING_RATE = 1e-5
-EPOCHS = 3
+EPOCHS = 30
 VALID_SCENES = 'vali' # the name of the folder where the validation dataset, 'vali' or 'test'
 accuracy_metric = 'loss' # "iou" or "loss
-save_confusion_matrix = False # A boolean to enable or disable saving the confusion matrix table."
+save_confusion_matrix = True # A boolean to enable or disable saving the confusion matrix table."
+# confusion matrix
+num_classes = 33  # Update for the correct number of classes
+# Define human-readable class labels
+class_labels = ['Background', 'Laub(misch)holzforste einheimischer Baumarten', 'Nadel(misch)forste heimischer Baumarten', 'laub(misch)holzforste eingeführter Baumarten',
+                'Heiden auf sandigen oder Silikat-Böden', 'Vorwälder', 'Kahlschläge und Fluren der Lichtungen', 'Spontanvegetation ',
+                'Trockenrasen', ' Laub(misch)wälder trockener', 'Nadel(misch)wälder und forste', 'Äcker und Ackerbrache', 'Artenreiches Grünland frischer Standorte',
+                'Trockenrasen sowie Grünland trockener bis frischer Standorte', ' Zwergstrauchheiden','Ruderalstandorte', 'Feldgehölze mit überwiegend autochthonen Arten',
+                'Waldfreie niedermoore und Sümpfe', 'Gehölzplantagen und Hopfenkulturen', 'Gebäude', 'Wald- und Ufersäume', 'Nadel(misch)forste eingeführter Baumarten',
+                'Stehende Gewässer anthropogenen Ursprungs', 'Vegetationsarme kies- und Schotterfläche', 'Gebüsche mit überwiegend autochthonen Arten', 'Streuobstbestand',
+                'Bauwerke', 'Plätze, befestigte Freiflächen', 'Nährstoffreiche Großseggenriede', 'Krautige Ufersäume oder -fluren an Gewässern', 'Birken-moorwälder',
+                'schaft', 'Bruchwälder', 'Schilfröhrichte']  # Replace with actual names of your classes
+
 
 
 
@@ -81,7 +93,10 @@ def main():
             class_zero=class_zero,
             VALID_SCENES=VALID_SCENES,
             accuracy_metric = accuracy_metric,
-            save_confusion_matrix = save_confusion_matrix
+            save_confusion_matrix = save_confusion_matrix,
+            num_classes=num_classes,
+            class_labels=class_labels
+
         )
 
     if Predict:
