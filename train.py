@@ -16,13 +16,12 @@ import seaborn as sns
 from tqdm import tqdm
 from predict import predict_valid
 from sklearn.metrics import confusion_matrix, classification_report
-from yellowbrick.classifier import ClassificationReport
 from sam2.build_sam import build_sam2
 from sam2.sam2_image_predictor import SAM2ImagePredictor
 
 
 def train_func(base_dir_train, model_confg, epoch, model_path, LEARNING_RATE, description,
-               mode="binary", class_zero=False, VALID_SCENES="vali", accuracy_metric='iou', save_confusion_matrix=True):
+               mode="binary", class_zero=False, VALID_SCENES="vali", accuracy_metric='iou', save_confusion_matrix=True, num_classes= 2, class_labels= list):
     # Automatically define paths to the SAM2 checkpoint and config files based on the current working directory
     current_dir = os.getcwd()
     segment_anything_dir = os.path.join(current_dir, "environment")
@@ -309,10 +308,10 @@ def train_func(base_dir_train, model_confg, epoch, model_path, LEARNING_RATE, de
         plt.show()
 
     # confusion matrix
-    num_classes = 2  # Update for the correct number of classes
+    num_classes = num_classes  # Update for the correct number of classes
 
     # Define human-readable class labels
-    class_labels = ['Background', 'canopy_cover']  # Replace with actual names of your classes
+    class_labels = class_labels
 
     if save_confusion_matrix:
         # Parent directory for saving the results
