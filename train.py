@@ -229,7 +229,6 @@ def train_func(base_dir_train, model_confg, epoch, model_path, LEARNING_RATE, de
             print(f"Epoch {itr + 1} - Validation: Mean IoU: {mean_valid_iou}, Mean Loss: {mean_valid_loss}")
 
         # Accuracy calculation
-        # Accuracy calculation
         def calculate_accuracy(metric):
             if metric == 'iou':
                 return validation_ious  # Return validation IoU values
@@ -243,7 +242,6 @@ def train_func(base_dir_train, model_confg, epoch, model_path, LEARNING_RATE, de
 
         # Print accuracy
         print(f"Accuracy based on {accuracy_metric}: {np.mean(accuracy):.4f}")  # Calculate mean before printing
-
 
         # Check if this is the best model to save it
         if validation_ious[-1] > best_iou:
@@ -264,8 +262,6 @@ def train_func(base_dir_train, model_confg, epoch, model_path, LEARNING_RATE, de
         print(f"Error: {temp_model_path} : {e.strerror}")
 
     # Save the loss and IoU metrics to CSV files at the end of training
-    # create the column name for accuracy based on the selected metric
-    # Ensure accuracy_metric points to the right values (all values, not just the mean)
     if accuracy_metric == 'iou':
         acc = np.array(validation_ious, dtype=float)  # Convert to float if needed
         accuracy_column_name = 'validation_ious'  # Set the appropriate column name
@@ -301,7 +297,6 @@ def train_func(base_dir_train, model_confg, epoch, model_path, LEARNING_RATE, de
         plt.legend()
         plt.grid(True)
         plt.tight_layout()
-        # Save the plot to the same directory as the CSV
         plt.savefig(plot_path)
         print(f"IoU comparison plot saved at {plot_path}")
         plt.show()
@@ -318,7 +313,6 @@ def train_func(base_dir_train, model_confg, epoch, model_path, LEARNING_RATE, de
         plt.legend()
         plt.grid(True)
         plt.tight_layout()
-        # Save the plot to the same directory as the CSV
         plt.savefig(plot_path)
         print(f"Loss comparison plot saved at {plot_path}")
         plt.show()
