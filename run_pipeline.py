@@ -26,18 +26,18 @@ class_zero = True # Enable for seperating 0 prediction class from nodata
 
 
 # Training parameters
-base_dir_train = r"C:\Users\Beate\Desktop\shadi\fine_tune_sam2\Full_Training_2\trai" # Path where two folders: "img_tiles" & "mask_tiles" exist
-model_path = r"C:\Users\Beate\Desktop\shadi\fine_tune_sam2\Model_path" # to save the trained model
-description = "sam2_fine_tune_Prösa_Weißhaus_ZschornerWald_15_epoch"
+base_dir_train = r"C:\Users\QuadroRTX\Downloads\fine_tune_sam2\prösa_dataset\Full_Training_2\trai" # Path where two folders: "img_tiles" & "mask_tiles" exist
+model_path = r"C:\Users\QuadroRTX\Downloads\fine_tune_sam2\prösa_dataset\model_path" # to save the trained model
+description = "sam2_fine_tune_Prösa_Weißhaus_ZschornerWald_30_epoch"
 model_confg = "large" # 'large', 'base_plus', 'small', 'tiny'  which are  4 different pre-trained SAM 2 models
 mode = "multi-label" # binary if the dataset is (0,1) classification, else #"multi-label"
 LEARNING_RATE = 1e-5
 EPOCHS = 30
 VALID_SCENES = 'vali' # the name of the folder where the validation dataset, 'vali' or 'test'
-accuracy_metric = 'loss' # "iou" or "loss
-save_confusion_matrix = True # A boolean to enable or disable saving the confusion matrix table."
+accuracy_metric = 'iou' # "iou" or "loss
+save_confusion_matrix = False # A boolean to enable or disable saving the confusion matrix table."
 # confusion matrix
-num_classes = 33  # Update for the correct number of classes
+num_classes = 32  # Update for the correct number of classes
 # Define human-readable class labels
 class_labels = ['Background', 'Laub(misch)holzforste einheimischer Baumarten', 'Nadel(misch)forste heimischer Baumarten', 'laub(misch)holzforste eingeführter Baumarten',
                 'Heiden auf sandigen oder Silikat-Böden', 'Vorwälder', 'Kahlschläge und Fluren der Lichtungen', 'Spontanvegetation ',
