@@ -13,7 +13,6 @@ from sam2.sam2_image_predictor import SAM2ImagePredictor
 from osgeo import gdal
 from tqdm import tqdm
 from skimage.transform import resize
-# from sklearn.metrics import confusion_matrix, classification_report
 from sklearn.metrics import precision_score, recall_score, f1_score
 from tifffile import imread
 import imageio.v2 as imageio
