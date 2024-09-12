@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Sep  5 21:26:17 2024
-
-@author: shadi
-"""
-
 import numpy as np
 import torch
 import os
@@ -141,8 +134,17 @@ def train_func(base_dir_train, model_confg, epoch, model_path, LEARNING_RATE, de
                 if mode == "binary":
                     gt_mask = torch.tensor(masks.astype(np.float32)).cuda()
                     prd_mask = torch.sigmoid(prd_masks[:, 0])
-                    seg_loss = (-gt_mask * torch.log(prd_mask + 0.00001) - (1 - gt_mask) * torch.log(
-                        (1 - prd_mask) + 0.00001)).mean()
+                    ############# adjust loss function:
+                    smooth = 1e-5  # Add a small value to avoid division by zero
+                    intersection = (gt_mask * prd_mask).sum()
+                    dice_loss = 1 - (2. * intersection + smooth) / (
+                            gt_mask.sum() + prd_mask.sum() + smooth)
+
+                    # Replace the segmentation loss with dice loss
+                    seg_loss = dice_loss
+
+                    # seg_loss = (-gt_mask * torch.log(prd_mask + 0.00001) - (1 - gt_mask) * torch.log(
+                    #     (1 - prd_mask) + 0.00001)).mean()
 
                     inter = (gt_mask * (prd_mask > 0.5)).sum(1).sum(1)
                     iou = inter / (gt_mask.sum(1).sum(1) + (prd_mask > 0.5).sum(1).sum(1) - inter)
@@ -161,24 +163,38 @@ def train_func(base_dir_train, model_confg, epoch, model_path, LEARNING_RATE, de
                             prd_mask = torch.nn.functional.interpolate(prd_mask.unsqueeze(0), size=gt_mask.shape[-2:],
                                                                        mode="bilinear", align_corners=False).squeeze(0)
 
-                        seg_loss = (-gt_mask * torch.log(prd_mask + 0.00001) - (1 - gt_mask) * torch.log(
-                            (1 - prd_mask) + 0.00001)).mean()
-                        batch_seg_loss += seg_loss.item()
+
+                        ########################### adjust loss function
+                        smooth = 1e-5  # Add a small value to avoid division by zero
+                        intersection = (gt_mask * prd_mask).sum()
+                        dice_loss = 1 - (2. * intersection + smooth) / (
+                                gt_mask.sum() + prd_mask.sum() + smooth)
+
+                        # Replace the segmentation loss with dice loss
+                        seg_loss = dice_loss
+
+                        # seg_loss = (-gt_mask * torch.log(prd_mask + 0.00001) - (1 - gt_mask) * torch.log(
+                        #     (1 - prd_mask) + 0.00001)).mean()
+                        batch_seg_loss += seg_loss
 
                         inter = (gt_mask * (prd_mask > 0.5)).sum(dim=(-2, -1))
                         union = gt_mask.sum(dim=(-2, -1)) + (prd_mask > 0.5).sum(dim=(-2, -1)) - inter
                         iou = inter / (union + 1e-5)  # Add epsilon to prevent division by zero
 
                         score_loss = torch.abs(prd_score - iou).mean()
-                        batch_iou_loss += score_loss.item()
+                        batch_iou_loss += score_loss
+
+
+
+
 
                     loss = batch_seg_loss + batch_iou_loss * 0.05
 
                 # Backpropagation
-                predictor.model.zero_grad()
-                scaler.scale(loss).backward()
-                scaler.step(optimizer)
-                scaler.update()
+                predictor.model.zero_grad()  # Zero out the gradients
+                scaler.scale(loss).backward()  # Scale the loss for mixed precision and backpropagate
+                scaler.step(optimizer)  # Perform an optimization step
+                scaler.update()  # Update the scaler for mixed precision
 
                 # Increment batch counter
                 num_batches += 1
