@@ -22,6 +22,7 @@ The checkpoint which defined here in the pipeline is `sam2_hiera_large.pt`.
 * developed on Windows 10
 
 ### Installation
+#### For Windows
 ```ruby
 conda create -n sam2 python=3.11
 ```
@@ -36,6 +37,31 @@ cd ../SAM2_fine_tune/environment
 ```
 ```ruby
 pip install -r requirements.txt
+```
+#### For Linux
+```ruby
+conda create -n sam2 python=3.11
+```
+```ruby
+conda activate sam2
+```
+```ruby
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+```
+```ruby
+conda install -c conda-forge gdal==3.6
+```
+```ruby
+conda config --env --add channels conda-forge
+```
+```ruby
+conda config --env --set channel_priority strict
+```
+```ruby
+cd ../SAM2_fine_tune/environment
+```
+```ruby
+pip install -r requirements_2.txt
 ```
 ## Executing program
 set parameters and run in run_pipeline.py
