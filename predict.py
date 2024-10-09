@@ -82,7 +82,7 @@ def calculate_metrics(pred_masks, gt_masks):
     return precision, recall, f1
 
 def predict_and_save_tiles(input_folder, model_path, mode="binary", model_confg_predict="large", merge=False,
-                           class_zero=False, validation_vision=False, AOI=None, year=None, ):
+                           class_zero=False, threshold = 0.4,  validation_vision=False, AOI=None, year=None, ):
     """Predict canopy cover area for all tiles in a folder and save the results."""
     all_precisions = []
     all_recalls = []
@@ -154,7 +154,7 @@ def predict_and_save_tiles(input_folder, model_path, mode="binary", model_confg_
                 np_scores = np_scores.cpu().numpy()
 
              # Check if the maximum score is below a certain threshold, e.g., 0.4
-            threshold = 0.4
+            threshold = threshold
             if np_scores.max() < threshold:
                 # Zeros the scores if they are all very low
                 masks = np.zeros_like(masks)
