@@ -37,17 +37,9 @@ VALID_SCENES = 'vali' # the name of the folder where the validation dataset, 'va
 accuracy_metric = 'iou' # "iou" or "loss
 save_confusion_matrix = False # A boolean to enable or disable saving the confusion matrix table."
 # confusion matrix
-num_classes = 32  # Update for the correct number of classes
+num_classes = 2  # Update for the correct number of classes
 # Define human-readable class labels
-class_labels = ['Background', 'Laub(misch)holzforste einheimischer Baumarten', 'Nadel(misch)forste heimischer Baumarten', 'laub(misch)holzforste eingeführter Baumarten',
-                'Heiden auf sandigen oder Silikat-Böden', 'Vorwälder', 'Kahlschläge und Fluren der Lichtungen', 'Spontanvegetation ',
-                'Trockenrasen', ' Laub(misch)wälder trockener', 'Nadel(misch)wälder und forste', 'Äcker und Ackerbrache', 'Artenreiches Grünland frischer Standorte',
-                'Trockenrasen sowie Grünland trockener bis frischer Standorte', ' Zwergstrauchheiden','Ruderalstandorte', 'Feldgehölze mit überwiegend autochthonen Arten',
-                'Waldfreie niedermoore und Sümpfe', 'Gehölzplantagen und Hopfenkulturen', 'Gebäude', 'Wald- und Ufersäume', 'Nadel(misch)forste eingeführter Baumarten',
-                'Stehende Gewässer anthropogenen Ursprungs', 'Vegetationsarme kies- und Schotterfläche', 'Gebüsche mit überwiegend autochthonen Arten', 'Streuobstbestand',
-                'Bauwerke', 'Plätze, befestigte Freiflächen', 'Nährstoffreiche Großseggenriede', 'Krautige Ufersäume oder -fluren an Gewässern', 'Birken-moorwälder',
-                'schaft', 'Bruchwälder', 'Schilfröhrichte']  # Replace with actual names of your classes
-
+class_labels = ['Background', 'Beschrimung']
 
 
 
@@ -56,6 +48,7 @@ predict_path = r"H:\+DeepLearning_Extern\beschirmung\RGB_UNET_Modell\Daten\test_
 predict_model = r"C:\Users\QuadroRTX\Downloads\SAM2\model\model_canopy_model_sam2_fine_tune_30_epoch_best.torch" # the path where the model saved and the name of the model "name.torch"
 AOI = "Potsdam" # Area of Interest (AOI). This parameter is used to append the output TIFF file to define the city of the prediction data.
 year = "1994" # The year of the prediction data. To append the output TIFF file to define the year.
+threshold = 0.4 # Less threshold equal zero, over one for binary classification.
 validation_vision = True # Confusion matrix and classification report figures, Keep merge and regression False to work!
 model_confg_predict = "large" # 'large', 'base_plus', 'small', 'tiny'  which are  4 different pre-trained SAM 2 models
 merge = True
@@ -107,6 +100,7 @@ def main():
             model_confg_predict=model_confg_predict,
             merge=merge,
             class_zero=class_zero,
+            threshold = threshold,
             validation_vision=validation_vision,
             AOI=AOI,
             year=year,
