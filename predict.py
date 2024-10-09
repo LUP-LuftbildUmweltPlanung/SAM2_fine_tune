@@ -154,7 +154,6 @@ def predict_and_save_tiles(input_folder, model_path, mode="binary", model_confg_
                 np_scores = np_scores.cpu().numpy()
 
              # Check if the maximum score is below a certain threshold, e.g., 0.4
-            threshold = threshold
             if np_scores.max() < threshold:
                 # Zeros the scores if they are all very low
                 masks = np.zeros_like(masks)
