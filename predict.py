@@ -61,7 +61,25 @@ def merge_files(output_folder, AOI, year):
     gdal.Warp(output_file, tif_files, options=warp_options)
     print(f"Merged file created at: {output_file}")
 
+def calculate_metrics(pred_masks, gt_masks):
+    # Flatten masks for metric calculations
+    pred_flat = pred_masks.flatten()
+    gt_flat = gt_masks.flatten()
 
+    # Determine if data is binary or multiclass
+    unique_labels = np.unique(gt_flat)
+
+    if len(unique_labels) <= 2:  # binary case
+        average_method = 'binary'
+    else:  # multiclass case
+        average_method = 'macro'
+
+    # Calculate metrics using the appropriate average method
+    precision = precision_score(gt_flat, pred_flat, average=average_method, zero_division=0)
+    recall = recall_score(gt_flat, pred_flat, average=average_method, zero_division=0)
+    f1 = f1_score(gt_flat, pred_flat, average=average_method, zero_division=0)
+
+    return precision, recall, f1
 
 def predict_and_save_tiles(input_folder, model_path, mode="binary", model_confg_predict="large", merge=False,
                            class_zero=False, validation_vision=False, AOI=None, year=None, ):
@@ -93,7 +111,6 @@ def predict_and_save_tiles(input_folder, model_path, mode="binary", model_confg_
     sam2_model = build_sam2(model_cfg, sam2_checkpoint, device="cuda")
     predictor = SAM2ImagePredictor(sam2_model)
     predictor.model.load_state_dict(torch.load(model_path, map_location="cuda"))
-
     # **Set model to evaluation mode**
     predictor.model.eval()
 
@@ -123,9 +140,8 @@ def predict_and_save_tiles(input_folder, model_path, mode="binary", model_confg_
                 masks, scores, logits = predictor.predict(
                     point_coords=None,
                     point_labels=None,
-                    multimask_output=(mode == "multi-label")
+                    multimask_output=False
                 )
-                # print("Number of predicted masks:", masks.shape[0])
 
             # Check if scores are 1-dimensional and handle accordingly
             if scores.ndim == 1:
@@ -136,6 +152,15 @@ def predict_and_save_tiles(input_folder, model_path, mode="binary", model_confg_
             # Convert scores to numpy if necessary
             if isinstance(np_scores, torch.Tensor):
                 np_scores = np_scores.cpu().numpy()
+
+             # Check if the maximum score is below a certain threshold, e.g., 0.4
+            threshold = 0.4
+            if np_scores.max() < threshold:
+                # Zeros the scores if they are all very low
+                masks = np.zeros_like(masks)
+            else:
+                # Use the original scores if they are above the threshold
+                masks = masks
 
             # Sort masks by scores
             sorted_indices = np.argsort(np_scores)[::-1]
@@ -234,28 +259,6 @@ def predict_and_save_tiles(input_folder, model_path, mode="binary", model_confg_
             writer.writerow(["Average", avg_precision, avg_recall, avg_f1])
 
         print(f"Metrics saved to {result_path}")
-
-
-
-def calculate_metrics(pred_masks, gt_masks):
-    # Flatten masks for metric calculations
-    pred_flat = pred_masks.flatten()
-    gt_flat = gt_masks.flatten()
-
-    # Determine if data is binary or multiclass
-    unique_labels = np.unique(gt_flat)
-
-    if len(unique_labels) <= 2:  # binary case
-        average_method = 'binary'
-    else:  # multiclass case
-        average_method = 'macro'
-
-    # Calculate metrics using the appropriate average method
-    precision = precision_score(gt_flat, pred_flat, average=average_method, zero_division=0)
-    recall = recall_score(gt_flat, pred_flat, average=average_method, zero_division=0)
-    f1 = f1_score(gt_flat, pred_flat, average=average_method, zero_division=0)
-
-    return precision, recall, f1
 
 
 def predict_valid(input_folder, model_path, mode="binary", model_confg=None, class_zero=False):
